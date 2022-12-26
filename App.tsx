@@ -5,9 +5,10 @@ import { Fragment, useEffect, useState } from 'react';
 import JokeSettings from './pages/index';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+//pages
 import JokeShow from './pages/joke';
 import JokeRatings from './pages/ratings'
-
+//components
 import Header from './components/Header';
 import Footer from './components/Footer';
 

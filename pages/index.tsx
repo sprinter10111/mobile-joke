@@ -5,25 +5,10 @@ import { useEffect, useState } from 'react';
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-interface Joke{
-  error:boolean;
-  category:string;
-  type:string;
-  joke:string;
-  flags:Flags;
-  id:number;
-  safe:boolean;
-  lang:string;
-}
+//interfaces
+import { Joke } from '../interfaces/interfaces'
+import { Flags } from '../interfaces/interfaces'
 
-interface Flags{
-  nsfw:boolean;
-  religious:boolean;
-  political:boolean;
-  racist:boolean;
-  sexist:boolean;
-  explicit:boolean;
-}
 
 let url:string='https://v2.jokeapi.dev/joke/Any?type=single';
 
