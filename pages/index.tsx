@@ -1,27 +1,42 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
-//import CheckBox from '@react-native-community/checkbox';
+import CheckBox from 'expo-checkbox';
 import { useEffect, useState } from 'react';
+import { NavigationContainer, useNavigation } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
+interface Joke{
+  error:boolean;
+  category:string;
+  type:string;
+  joke:string;
+  flags:Flags;
+  id:number;
+  safe:boolean;
+  lang:string;
+}
 
-//interface
-import { Joke } from '../interfaces/interfaces'
-import {Flags} from '../interfaces/interfaces'
-//style
-import {styles} from '../styles/index'
+interface Flags{
+  nsfw:boolean;
+  religious:boolean;
+  political:boolean;
+  racist:boolean;
+  sexist:boolean;
+  explicit:boolean;
+}
 
 let url:string='https://v2.jokeapi.dev/joke/Any?type=single';
 
-export default function index() {
+export default function JokeSettings() {
   const [isLoading, setLoading] = useState(true);
   const [data, setData] = useState<Joke>();
 
-  const [nsfw,setNsfw] = useState(false);
-  const [religious,setReligious]=useState(false);
-  const [political,setPolitical]=useState(false);
-  const [racist,setRacist]=useState(false);
-  const [sexist,setSexist]=useState(false);
-  const [explicit,setExplicit]=useState(false);
+  const [nsfw,setBlacklistNsfw] = useState(false);
+  const [religious,setBlacklistReligious]=useState(false);
+  const [political,setBlacklistPolitical]=useState(false);
+  const [racist,setBlacklistRacist]=useState(false);
+  const [sexist,setBlacklistSexist]=useState(false);
+  const [explicit,setBlacklistExplicit]=useState(false);
 
   const [contains,setContains]=useState("");
   const [idMin,setIdMin]=useState("");
@@ -29,8 +44,9 @@ export default function index() {
 
   const [stringIsBuild,setStringIsBuild]=useState(false);
 
+  const navigation : any =useNavigation();
   
-  let grap;
+  let grap:any;
 
   const BuildString=()=>{
     if(nsfw||religious||political||racist||sexist||explicit){
@@ -82,18 +98,39 @@ export default function index() {
     setStringIsBuild(false);
     url="https://v2.jokeapi.dev/joke/Any?type=single"
   }
-  grap=data?.joke;
+  if(data){
+    grap=data?.joke;
+    navigation.navigate("Joke",{grap});
+  }
+  
+
+ 
+
+
   
   return (
-    <View style={styles.container}>
-      <Text>nsfw</Text>    
+    <View>
+      <Text>Choose what joke types to blacklist:</Text>
+      <Text>Nsfw<CheckBox disabled={false} value={nsfw} onValueChange={(x)=>setBlacklistNsfw(x)}/></Text>
+      
+      <Text>Religious<CheckBox disabled={false} value={religious} onValueChange={(x)=>setBlacklistReligious(x)}/></Text>
+      
+      <Text>Political<CheckBox disabled={false} value={political} onValueChange={(x)=>setBlacklistPolitical(x)}/></Text>
+      
+      <Text>Racist<CheckBox disabled={false} value={racist} onValueChange={(x)=>setBlacklistRacist(x)}/></Text>
+      
+      <Text>Sexist<CheckBox disabled={false} value={sexist} onValueChange={(x)=>setBlacklistSexist(x)}/></Text>
+      
+      <Text>Explicit<CheckBox disabled={false} value={explicit} onValueChange={(x)=>setBlacklistExplicit(x)}/></Text>
+      
+
 
       <TextInput onChangeText={text => setContains(text)} placeholder="contains"/>
       <TextInput onChangeText={text => setIdMin(text)} placeholder="idMin"/>
       <TextInput onChangeText={text => setIdMax(text)} placeholder="idMax"/>
-      <Button title="get joke" disabled={false} onPress={BuildString}/>
+      <Button title="get joke" disabled={false} onPress={BuildString} />
 
-       {isLoading ? <Text>Loading...</Text> : <View><Text>{grap}</Text></View>}
+       
       <StatusBar style="auto" />
     </View>
   );
