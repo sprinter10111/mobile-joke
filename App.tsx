@@ -7,17 +7,28 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import JokeShow from './modules/joke-show/JokeShow';
 
+import Footer from './components/Footer';
+import Header from './components/Header';
+
 export default function App() {
   
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
+      <Header />
+
       <Stack.Navigator>
         <Stack.Screen name="Home" component={JokeSettings}/>
         <Stack.Screen name="Joke" component={JokeShow}/>
+
       </Stack.Navigator>
+      <Footer />
     </NavigationContainer>
+    
   );
 }
+
+
+
 
