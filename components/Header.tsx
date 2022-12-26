@@ -1,12 +1,16 @@
+
+
 import React, { Component } from 'react';
  
-export default function Header() {  
-  
+class Header extends Component {
+  render() {
     return (
-      <view>
-        <Text>This is header component.</Text>        
-      </view>
+      <div>
+        This is header component.
+      </div>
     );
   }
-
+}
  
+export default Header;
+

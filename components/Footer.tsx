@@ -1,12 +1,16 @@
+
+
 import React, { Component } from 'react';
-import { Text, View, TextInput, Button } from 'react-native';
  
-export default function Footer() {  
+class Footer extends Component {
+  render() {
     return (
-      
-        <Text>This is Footer component.</Text>        
-            
+      <div>
+        This is Footer component.
+      </div>        
     );
-  
+  }
 }
  
+export default Footer;
+

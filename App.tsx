@@ -8,19 +8,22 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import JokeShow from './pages/joke';
 import JokeRatings from './pages/ratings'
 
+import Header from './components/Header';
+import Footer from './components/Footer';
+
 export default function App() {
   
   const Stack = createNativeStackNavigator();
 
   return (
     <NavigationContainer>
-      <View><Text>Header</Text></View>
+      <Header />
       <Stack.Navigator>
         <Stack.Screen name="Home" component={JokeSettings}/>
         <Stack.Screen name="Joke" component={JokeShow}/>
         <Stack.Screen name="ratings" component={JokeRatings}/>
       </Stack.Navigator>
-      <View><Text>Footer</Text></View>
+      <Footer />
     </NavigationContainer>
   );
 }
