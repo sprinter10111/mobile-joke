@@ -6,6 +6,7 @@ import { NavigationContainer, RouteProp, useNavigation, useRoute } from "@react-
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from 'expo-speech';
+import Async from "react-async";
 import React from 'react';
 
 let allegrappen : string[]=[];
@@ -16,6 +17,11 @@ const fetchAllItems = async () => {
       const items = await AsyncStorage.multiGet(keys);
       for(let i=0; i<keys.length;i++){
         allegrappen[i]=items[i][1]||"";
+
+        //dit doet niets???
+        /*allegrappen[i]=allegrappen[i].replace(/[\n\r]/g,' ');        
+        allegrappen[i]=allegrappen[i].replace("\ ", " ");
+        console.log(allegrappen[i]);       */
       }      
 }
 
@@ -39,43 +45,46 @@ export default function  JokeShow() {
   
   const route: RouteProp<any> = useRoute();
   const navigation : any =useNavigation();    
-  fetchAllItems().then(function(){
-    stringGrap=allegrappen;
-    let re=/\n/g;
-    stringGrap.map((grap)=>{
-      grap.replace(new RegExp('\n', 'g'), "<br />");
-    })
-    console.log(stringGrap);
-  });
+  fetchAllItems();
+  /*<Async promiseFn={fetchAllItems}>
+    {({ data, error, isLoading }) => {
+      if (isLoading) return "Loading...";
+      if (error) return `Something went wrong: ${error.message}`;
+      if (data)
+        return (
+          <View>
+      <ScrollView>
+      {allegrappen.map((grap) => {
+         return (
+          <View>
+            <Text>{grap}</Text>
+            <Button title="Press to hear the joke" onPress={()=>speak(grap)}/>
+          </View>
+        );
+      })}
+      </ScrollView>
+    </View>
+          
+        );
+      return null;
+    }}
+  </Async>*/
 
-  if(allegrappen!=null){
-    
-    //console.log(allegrappen);
-  }
 
-  if(counter==0){
-    onRefresh();
-    setCounter(1);
-  }
-  
+
   
   return (
 
-    <View >
-        <ScrollView refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={onRefresh}
-          />
-        }>
-        {stringGrap.map((grap) => {
-          return (
-            <View>
-              <Text>{grap}</Text>
-              <Button title="Press to hear the joke" onPress={()=>speak(grap)} />
-            </View>
-          );
-        })}
+<View>
+<ScrollView>
+      {allegrappen.map((grap) => {
+         return (
+          <View>
+            <Text>{grap}</Text>
+            <Button title="Press to hear the joke" onPress={()=>speak(grap)}/>
+          </View>
+        );
+      })}
       </ScrollView>
     </View>
 
