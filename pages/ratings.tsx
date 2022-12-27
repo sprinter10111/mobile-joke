@@ -13,9 +13,9 @@ const fetchAllItems = async () => {
       const keys = await AsyncStorage.getAllKeys()      
       const items = await AsyncStorage.multiGet(keys)
       
-      for(let i=0;i<keys.length;i++){              
+      /*for(let i=0;i<keys.length;i++){              
           allegrappen[i]=await (items[i][1])||"";            
-      }
+      }*/
       
 }
 
@@ -35,7 +35,7 @@ export default function  JokeShow() {
   
   return (
     <>
-    <Text>lijst met grappen</Text>
+      <Text>lijst met grappen</Text>
     
     <ol>{allegrappen.map((grap) => <li>{grap} <Button title="Press to hear some words" onPress={speak(grap)} /> </li>)}</ol>
     

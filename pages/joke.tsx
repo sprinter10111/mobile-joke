@@ -21,7 +21,7 @@ export default function JokeShow() {
     }
   
   return (
-    <View>
+    <View style={styles.container}>
         <Text>{route.params?.grapId.grap}</Text>
         <Button title='Save Joke' onPress={SaveJoke}/>
     </View>
