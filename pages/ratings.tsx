@@ -5,17 +5,52 @@ import { Fragment, useEffect, useState } from 'react';
 import { NavigationContainer, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { GrapId } from '../interfaces/interfaces';
+
+let allegrappen : string[]=[];
+
+
+
+/*const getData = async () => {
+  allegrappen=[];
+  const value = await AsyncStorage.getItem("grappen");
+  if (value !== null) {    
+        
+    allegrappen.push(JSON.parse(value));   
+  }
+};*/
+
+const fetchAllItems = async () => {  
+      const keys = await AsyncStorage.getAllKeys()      
+      const items = await AsyncStorage.multiGet(keys)
+      
+      for(let i=0;i<keys.length;i++){              
+          allegrappen[i]=(items[i][1])||""; 
+          //console.log(items[i][1]);     
+      }
+      console.log(allegrappen);
+}
+
+ /*{allegrappen.forEach(( grap  ) => (
+        <Text key={grap}>{grap}</Text>
+      ))}*/
 
 
 export default function JokeShow() {
   const route: RouteProp<any> = useRoute();
-  const navigation : any =useNavigation();
+  const navigation : any =useNavigation();   
 
-
+  fetchAllItems();
+  
+  const iets=<ul>{allegrappen.map((grap) => <li>{grap}</li>)}</ul>
+  console.log(iets);
   
   return (
-    <Fragment>
-        <Text>{route.params?.grap2}</Text>
-    </Fragment>
+    <>
+    <Text>lijst met grappen</Text>
+    {iets}
+    
+     
+    </>
   );
 }

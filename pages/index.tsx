@@ -8,6 +8,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 //interfaces
 import { Joke } from '../interfaces/interfaces'
 import { Flags } from '../interfaces/interfaces'
+import { GrapId } from '../interfaces/interfaces'
 
 
 let url:string='https://v2.jokeapi.dev/joke/Any?type=single';
@@ -31,7 +32,7 @@ export default function JokeSettings() {
 
   const navigation : any =useNavigation();
   
-  let grap:any;
+  let grapId:GrapId;
 
   const BuildString=()=>{
     if(nsfw||religious||political||racist||sexist||explicit){
@@ -84,8 +85,8 @@ export default function JokeSettings() {
     url="https://v2.jokeapi.dev/joke/Any?type=single"
   }
   if(data){
-    grap=data?.joke;
-    navigation.navigate("Joke",{grap});
+    grapId={grap:data?.joke,Id:data?.id};
+    navigation.navigate("Joke",{grapId});
   }
   
 

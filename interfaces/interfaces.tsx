@@ -18,4 +18,8 @@ export interface Joke{
     explicit:boolean;
   }
 
+  export interface GrapId{
+    grap:string;
+    Id:number;
+  }
   
