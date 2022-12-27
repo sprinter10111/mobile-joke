@@ -5,7 +5,7 @@ import {styles} from '../styles/footer';
 class Footer extends Component {
   render() {
     return (
-        <Text style={styles.footer}>This is Footer component.</Text>
+        <Text style={styles.footer}>If you want a real joke, open the front facing camera.</Text>
     );
   }
 }

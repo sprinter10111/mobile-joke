@@ -11,7 +11,8 @@ import { Joke } from '../interfaces/interfaces'
 import { Flags } from '../interfaces/interfaces'
 import { GrapId } from '../interfaces/interfaces'
 
-
+let nullFlags:Flags={nsfw:false,religious:false,political:false,racist:false,sexist:false,explicit:false}
+let nullData:Joke={error:false,category:'',type:'',joke:'',flags:nullFlags,id:0,safe:false,lang:''}
 let url:string='https://v2.jokeapi.dev/joke/Any?type=single';
 
 export default function JokeSettings() {
@@ -26,8 +27,6 @@ export default function JokeSettings() {
   const [explicit,setBlacklistExplicit]=useState(false);
 
   const [contains,setContains]=useState("");
-  const [idMin,setIdMin]=useState("");
-  const [idMax,setIdMax]=useState("");
 
   const [stringIsBuild,setStringIsBuild]=useState(false);
 
@@ -59,23 +58,14 @@ export default function JokeSettings() {
       url=url.slice(0,-1);
       url+="&type=single";
     }
-
-
-    if(contains!=""&&idMin!=""){
-      url+="&contains="+contains+"&"+"idRange="+idMin+"-"+idMax;
-    }else{
-      if(contains!=""){
-        url+="&contains="+contains;
-      }
-      if(idMin!=""){
-        url+="&idRange="+idMin+"-"+idMax;
-      }
+    if(contains!=""){
+      url+="&contains="+contains;
     }
-    setStringIsBuild(true);
     console.log(url);
+    fetchUrl();
   }
 
-  if(stringIsBuild){
+  let fetchUrl=()=>{
       fetch(url)
         .then((response) => response.json())
         .then((json) => setData(json))
@@ -88,12 +78,8 @@ export default function JokeSettings() {
   if(data){
     grapId={grap:data?.joke,Id:data?.id};
     navigation.navigate("Joke",{grapId});
+    setData();
   }
-  
-
- 
-
-
   
   return (
     <View style={styles.container}>
@@ -113,11 +99,10 @@ export default function JokeSettings() {
         <Text style={styles.text}><CheckBox disabled={false} value={explicit} onValueChange={(x)=>setBlacklistExplicit(x)}/> Explicit</Text>
       </View>
 
-      <TextInput style={styles.textinput} onChangeText={text => setContains(text)} placeholder="contains"/>
-      <TextInput style={styles.textinput} onChangeText={text => setIdMin(text)} placeholder="idMin"/>
-      <TextInput style={styles.textinput} onChangeText={text => setIdMax(text)} placeholder="idMax"/>
-      <Button title="get joke" disabled={false} onPress={BuildString} />
 
+      <Text style={styles.texttitle}>write a joke topic:</Text>
+      <TextInput style={styles.textinput} onChangeText={text => setContains(text)} placeholder="contains"/>
+      <Button title="get joke" disabled={false} onPress={BuildString} color='orange'/>
        
       <StatusBar style="auto" />
     </View>
