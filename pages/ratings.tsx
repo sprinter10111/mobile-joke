@@ -5,20 +5,9 @@ import { Fragment, useEffect, useState } from 'react';
 import { NavigationContainer, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { GrapId } from '../interfaces/interfaces';
+import * as Speech from 'expo-speech';
 
 let allegrappen : string[]=[];
-
-
-
-/*const getData = async () => {
-  allegrappen=[];
-  const value = await AsyncStorage.getItem("grappen");
-  if (value !== null) {    
-        
-    allegrappen.push(JSON.parse(value));   
-  }
-};*/
 
 const fetchAllItems = async () => {  
       const keys = await AsyncStorage.getAllKeys()      
@@ -30,23 +19,25 @@ const fetchAllItems = async () => {
       
 }
 
- 
-
 
 export default function  JokeShow() {
   const route: RouteProp<any> = useRoute();
   const navigation : any =useNavigation();   
 
+  
+  const speak = (degrap: string) => {
+    
+    Speech.speak(degrap);
+  };
+  
   fetchAllItems();
   
-  const iets=<ul>{allegrappen.map((grap) => <li>{grap}</li>)}</ul>
-  console.log(iets);
   
   return (
     <>
     <Text>lijst met grappen</Text>
     
-      {iets}
+    <ol>{allegrappen.map((grap) => <li>{grap} <Button title="Press to hear some words" onPress={speak(grap)} /> </li>)}</ol>
     
      
     </>
