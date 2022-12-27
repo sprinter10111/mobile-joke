@@ -69,9 +69,10 @@ export default function  JokeShow() {
       return null;
     }}
   </Async>*/
-
-
-
+    if(counter==0){
+      onRefresh();
+      setCounter(1);
+    }
   
   return (
 
