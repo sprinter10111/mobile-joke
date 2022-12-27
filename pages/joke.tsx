@@ -4,6 +4,7 @@ import CheckBox from 'expo-checkbox';
 import { Fragment, useEffect, useState } from 'react';
 import { NavigationContainer, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {styles} from '../styles/joke'
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { GrapId } from '../interfaces/interfaces';
 
@@ -20,9 +21,9 @@ export default function JokeShow() {
     }
   
   return (
-    <Fragment>
+    <View>
         <Text>{route.params?.grapId.grap}</Text>
         <Button title='Save Joke' onPress={SaveJoke}/>
-    </Fragment>
+    </View>
   );
 }

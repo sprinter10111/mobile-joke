@@ -1,9 +1,10 @@
 import { StatusBar } from 'expo-status-bar';
 import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
 import CheckBox from 'expo-checkbox';
-import { useEffect, useState } from 'react';
+import { Fragment, useEffect, useState } from 'react';
 import { NavigationContainer, useNavigation } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {styles} from '../styles/index'
 
 //interfaces
 import { Joke } from '../interfaces/interfaces'
@@ -95,25 +96,26 @@ export default function JokeSettings() {
 
   
   return (
-    <View>
-      <Text>Choose what joke types to blacklist:</Text>
-      <Text>Nsfw<CheckBox disabled={false} value={nsfw} onValueChange={(x)=>setBlacklistNsfw(x)}/></Text>
-      
-      <Text>Religious<CheckBox disabled={false} value={religious} onValueChange={(x)=>setBlacklistReligious(x)}/></Text>
-      
-      <Text>Political<CheckBox disabled={false} value={political} onValueChange={(x)=>setBlacklistPolitical(x)}/></Text>
-      
-      <Text>Racist<CheckBox disabled={false} value={racist} onValueChange={(x)=>setBlacklistRacist(x)}/></Text>
-      
-      <Text>Sexist<CheckBox disabled={false} value={sexist} onValueChange={(x)=>setBlacklistSexist(x)}/></Text>
-      
-      <Text>Explicit<CheckBox disabled={false} value={explicit} onValueChange={(x)=>setBlacklistExplicit(x)}/></Text>
-      
+    <View style={styles.container}>
+      <Text style={styles.texttitle}>Choose what joke types to blacklist:</Text>
 
+      <View>
+        <Text style={styles.text}><CheckBox disabled={false} value={nsfw} onValueChange={(x)=>setBlacklistNsfw(x)}/> Nsfw</Text>
+      
+        <Text style={styles.text}><CheckBox disabled={false} value={religious} onValueChange={(x)=>setBlacklistReligious(x)}/> Religious</Text>
+      
+        <Text style={styles.text}><CheckBox disabled={false} value={political} onValueChange={(x)=>setBlacklistPolitical(x)}/> Explicit</Text>
+      
+        <Text style={styles.text}><CheckBox disabled={false} value={racist} onValueChange={(x)=>setBlacklistRacist(x)}/> Racist</Text>
+      
+        <Text style={styles.text}><CheckBox disabled={false} value={sexist} onValueChange={(x)=>setBlacklistSexist(x)}/> Sexist</Text>
+      
+        <Text style={styles.text}><CheckBox disabled={false} value={explicit} onValueChange={(x)=>setBlacklistExplicit(x)}/> Explicit</Text>
+      </View>
 
-      <TextInput onChangeText={text => setContains(text)} placeholder="contains"/>
-      <TextInput onChangeText={text => setIdMin(text)} placeholder="idMin"/>
-      <TextInput onChangeText={text => setIdMax(text)} placeholder="idMax"/>
+      <TextInput style={styles.textinput} onChangeText={text => setContains(text)} placeholder="contains"/>
+      <TextInput style={styles.textinput} onChangeText={text => setIdMin(text)} placeholder="idMin"/>
+      <TextInput style={styles.textinput} onChangeText={text => setIdMax(text)} placeholder="idMax"/>
       <Button title="get joke" disabled={false} onPress={BuildString} />
 
        
@@ -121,3 +123,4 @@ export default function JokeSettings() {
     </View>
   );
 }
+
