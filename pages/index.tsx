@@ -1,9 +1,8 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View, TextInput, Button } from 'react-native';
+import { Text, View, TextInput, Button } from 'react-native';
 import CheckBox from 'expo-checkbox';
-import { Fragment, useEffect, useState } from 'react';
-import { NavigationContainer, useNavigation } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useState } from 'react';
+import { useNavigation } from "@react-navigation/native";
 import {styles} from '../styles/index'
 
 //interfaces
@@ -28,8 +27,6 @@ export default function JokeSettings() {
 
   const [contains,setContains]=useState("");
 
-  const [stringIsBuild,setStringIsBuild]=useState(false);
-
   const navigation : any =useNavigation();
   
   let grapId:GrapId;
@@ -53,7 +50,7 @@ export default function JokeSettings() {
         url+="sexist,";
       }
       if(explicit){
-        url="explicit,";
+        url+="explicit,";
       }
       url=url.slice(0,-1);
       url+="&type=single";
@@ -72,7 +69,6 @@ export default function JokeSettings() {
         .catch((error) => console.error(error))
         .finally(() => setLoading(false));
     
-    setStringIsBuild(false);
     url="https://v2.jokeapi.dev/joke/Any?type=single"
   }
   if(data){
@@ -98,7 +94,6 @@ export default function JokeSettings() {
       
         <Text style={styles.text}><CheckBox disabled={false} value={explicit} onValueChange={(x)=>setBlacklistExplicit(x)}/> Explicit</Text>
       </View>
-
 
       <Text style={styles.texttitle}>write a joke topic:</Text>
       <TextInput style={styles.textinput} onChangeText={text => setContains(text)} placeholder="contains"/>

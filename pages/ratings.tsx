@@ -1,12 +1,7 @@
-import { StatusBar } from 'expo-status-bar';
-import { ScrollView ,StyleSheet, Text, View, TextInput, Button,RefreshControl } from 'react-native';
-import CheckBox from 'expo-checkbox';
-import { Fragment, useEffect, useState } from 'react';
-import { NavigationContainer, RouteProp, useNavigation, useRoute } from "@react-navigation/native";
-import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { ScrollView ,Text, View, Button } from 'react-native';
+import { RouteProp, useNavigation, useRoute } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from 'expo-speech';
-import Async from "react-async";
 import React from 'react';
 
 let allegrappen : string[]=[];
@@ -46,29 +41,6 @@ export default function  JokeShow() {
   const route: RouteProp<any> = useRoute();
   const navigation : any =useNavigation();    
   fetchAllItems();
-  /*<Async promiseFn={fetchAllItems}>
-    {({ data, error, isLoading }) => {
-      if (isLoading) return "Loading...";
-      if (error) return `Something went wrong: ${error.message}`;
-      if (data)
-        return (
-          <View>
-      <ScrollView>
-      {allegrappen.map((grap) => {
-         return (
-          <View>
-            <Text>{grap}</Text>
-            <Button title="Press to hear the joke" onPress={()=>speak(grap)}/>
-          </View>
-        );
-      })}
-      </ScrollView>
-    </View>
-          
-        );
-      return null;
-    }}
-  </Async>*/
     if(counter==0){
       onRefresh();
       setCounter(1);
