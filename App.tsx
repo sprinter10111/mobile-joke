@@ -5,7 +5,7 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import { LogBox } from 'react-native';
 //pages
 import JokeShow from './pages/joke';
-import JokeRatings from './pages/ratings'
+import JokeRatings from './pages/jokes'
 //components
 import Footer from './components/Footer';
 

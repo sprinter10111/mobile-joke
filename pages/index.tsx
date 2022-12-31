@@ -74,12 +74,12 @@ export default function JokeSettings() {
   if(data){
     grapId={grap:data?.joke,Id:data?.id};
     navigation.navigate("Joke",{grapId});
-    setData();
+    //setData();
   }
   
   return (
     <View style={styles.container}>
-      <Text style={styles.texttitle}>Choose what joke types to blacklist:</Text>
+      <Text style={styles.texttitle}>Choose what joke types of jokes u want:</Text>
 
       <View>
         <Text style={styles.text}><CheckBox disabled={false} value={nsfw} onValueChange={(x)=>setBlacklistNsfw(x)}/> Nsfw</Text>
