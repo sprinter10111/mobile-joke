@@ -8,6 +8,7 @@ import AsyncStorage from "@react-native-async-storage/async-storage";
 import * as Speech from 'expo-speech';
 import Async from "react-async";
 import React from 'react';
+import {styles} from '../styles/jokes'
 
 let allegrappen : string[]=[];
 let stringGrap:string[]=[];
@@ -80,8 +81,8 @@ export default function  JokeShow() {
 <ScrollView>
       {allegrappen.map((grap) => {
          return (
-          <View>
-            <Text>{grap}</Text>
+          <View style={styles.container}>
+            <Text style={styles.text}>{grap}</Text>
             <Button title="Press to hear the joke" onPress={()=>speak(grap)}/>
           </View>
         );
